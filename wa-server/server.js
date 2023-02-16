@@ -4,6 +4,7 @@ import express from 'express';
 import morgan from 'morgan';
 
 import authRoutes from './app/auth/auth.routes.js';
+import { prisma } from './app/prisma.js';
 
 const app = express();
 dotenv.config();
@@ -21,9 +22,17 @@ async function main() {
 	app.listen(
 		PORT,
 		console.log(
-			`Server is running in ${process.env.NODE_ENV} mode on port ${PORT}`.green
+			`Server is running in ${process.env.NODE_ENV} mode on port ${PORT}`.blue
 		)
 	);
 }
 
-main();
+main()
+	.then(async () => {
+		await prisma.$disconnect();
+	})
+	.catch(async e => {
+		console.error(e);
+		await prisma.$disconnect();
+		process.exit(1);
+	});
