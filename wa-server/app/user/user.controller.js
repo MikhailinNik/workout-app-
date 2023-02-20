@@ -1,6 +1,6 @@
-import asyncHandler from 'express-async-handler'
+import asyncHandler from 'express-async-handler';
 
-import { prisma } from '../prisma.js'
+import { prisma } from '../prisma.js';
 
 // @desc Get user profile
 // @route GET /api/users/profile
@@ -9,7 +9,7 @@ import { prisma } from '../prisma.js'
 export const getUserProfile = asyncHandler(async (req, res) => {
 	const user = await prisma.user.findUnique({
 		where: {
-			id: req.user.id
+			id: +req.user.id
 		}
 	});
 

@@ -23,7 +23,11 @@ export const createExercise = asyncHandler(async (req, res) => {
 // @route GET /api/exercises
 // @access Private
 export const getExercises = asyncHandler(async (req, res) => {
-	const exercises = await prisma.exercise.findMany();
+	const exercises = await prisma.exercise.findMany({
+		orderBy: {
+			createdAt: 'desc'
+		}
+	});
 
 	res.json(exercises);
 });
