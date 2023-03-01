@@ -11,6 +11,10 @@ export const createWorkoutLog = asyncHandler(async (req, res) => {
 	const workout = await prisma.workout.findUnique({
 		where: {
 			id: workoutId
+		},
+
+		include: {
+			exercises: true
 		}
 	});
 

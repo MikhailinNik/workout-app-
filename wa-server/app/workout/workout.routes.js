@@ -2,11 +2,9 @@ import express from 'express';
 
 import { protect } from '../middleware/auth.middleware.js';
 
-import {
-	createNewWorkoutLog,
-	getWorkoutLog,
-	updateCompleteWorkoutLog
-} from './log/workout-log.controller.js';
+import { getWorkoutLog } from './log/get-workout.log.controller.js';
+import { updateCompleteWorkoutLog } from './log/update-workout-log.controller.js';
+import { createWorkoutLog } from './log/workout-log.controller.js';
 import {
 	createWorkout,
 	deleteWorkout,
@@ -27,7 +25,7 @@ router
 
 router
 	.route('/log/:id')
-	.post(protect, createNewWorkoutLog)
+	.post(protect, createWorkoutLog)
 	.get(protect, getWorkoutLog);
 
 router.route('/log/complete/:id').patch(protect, updateCompleteWorkoutLog);
