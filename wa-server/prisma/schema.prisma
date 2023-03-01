@@ -21,7 +21,7 @@ model User {
   images   String[]
 
   exerciseLogs ExerciseLog[]
-  WorkoutLog   WorkoutLog[]
+  WorkoutLogs  WorkoutLog[]
 }
 
 model Workout {
@@ -29,9 +29,9 @@ model Workout {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  name       String
-  exercises  Exercise[]
-  WorkoutLog WorkoutLog[]
+  name        String
+  exercises   Exercise[]
+  WorkoutLogs WorkoutLog[]
 }
 
 model Exercise {

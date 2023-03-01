@@ -7,13 +7,14 @@ import { prisma } from '../prisma.js';
 // @access Private
 export const createWorkout = asyncHandler(async (req, res) => {
 	const { name, exerciseIds } = req.body;
-	console.log('req.body: ', req.body);
 
 	const workout = await prisma.workout.create({
 		data: {
 			name,
 			exercises: {
-				connect: exerciseIds.map(id => ({ id: +id }))
+				connect: exerciseIds.map(id => ({
+					id: +id
+				}))
 			}
 		}
 	});
@@ -41,7 +42,7 @@ export const getWorkouts = asyncHandler(async (req, res) => {
 // @route GET /api/workouts/:id
 // @access Private
 export const getWorkout = asyncHandler(async (req, res) => {
-	const workout = await prisma.workout.findMany({
+	const workout = await prisma.workout.findUnique({
 		where: {
 			id: +req.params.id
 		},
@@ -55,6 +56,7 @@ export const getWorkout = asyncHandler(async (req, res) => {
 		throw new Error('Workout not found!');
 	}
 
+	console.log('workout: ', workout);
 	const minutes = Math.ceil(workout.exercises.length * 2.7);
 
 	res.json({ ...workout, minutes });
@@ -73,7 +75,7 @@ export const updateWorkout = asyncHandler(async (req, res) => {
 			data: {
 				name,
 				exercises: {
-					set: exerciseIds.map(exercise => +exercise.id)
+					set: exerciseIds.map(id => ({ id: +id }))
 				}
 			}
 		});
