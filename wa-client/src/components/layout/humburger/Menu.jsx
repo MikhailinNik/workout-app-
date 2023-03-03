@@ -1,4 +1,5 @@
 import cn from 'clsx';
+import { Link } from 'react-router-dom';
 
 import styles from './Humburger.module.scss';
 import { menu } from './menu.data.js';
@@ -13,7 +14,9 @@ const Menu = ({ isShow }) => {
 		>
 			<ul>
 				{menu.map((item, index) => (
-					<li key={index}>{item.title}</li>
+					<li key={index}>
+						<Link to={item.link}>{item.title}</Link>
+					</li>
 				))}
 				<li>
 					<button onClick={logoutHandler}>Logout</button>

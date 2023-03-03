@@ -1,0 +1,15 @@
+.wrapper {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	list-style: none;
+
+	> li {
+		text-align: center;
+
+		&:nth-child(2) {
+			margin-right: 50px;
+		}
+	}
+}
