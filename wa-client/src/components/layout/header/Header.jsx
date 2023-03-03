@@ -1,7 +1,11 @@
 import { FiArrowLeft } from 'react-icons/fi';
-import { useAuth } from '../../hooks/useAuth';
-import styles from './Header.module.scss';
+import { Link } from 'react-router-dom';
+
+import { useAuth } from '../../../hooks/useAuth';
+
 import Hamburger from '../humburger/Hamburger';
+
+import styles from './Header.module.scss';
 
 const Header = () => {
 	const { isAuth } = useAuth();
@@ -9,8 +13,11 @@ const Header = () => {
 	return (
 		<header className={styles.header}>
 			<button>
-				<FiArrowLeft color='white' />
+				<Link to='/'>
+					<FiArrowLeft color='white' fontSize={30} />
+				</Link>
 			</button>
+
 			<Hamburger />
 		</header>
 	);
