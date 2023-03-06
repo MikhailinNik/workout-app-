@@ -1,8 +1,5 @@
-import { useMutation } from '@tanstack/react-query';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useAuthPage } from '../../../hooks/useAuthPage';
 
-import AuthService from '../../../services/auth.service';
 import Layout from '../../layout/Layout';
 import Button from '../../ui/button/Button';
 import Field from '../../ui/field/Field';
@@ -11,35 +8,22 @@ import Loader from '../../ui/loader/Loader';
 import styles from './Auth.module.scss';
 
 const Auth = () => {
-	const [type, setType] = useState('auth');
-
 	const {
+		setType,
 		register,
 		handleSubmit,
-		reset,
-		formState: { errors }
-	} = useForm({
-		mode: 'onChange'
-	});
-
-	const { mutate, isLoading } = useMutation(
-		['auth'],
-		({ email, password }) => AuthService.main(type, email, password),
-		{
-			onSuccess: data => {
-				alert('success');
-				reset();
-			}
-		}
-	);
-
-	const onSubmit = data => {
-		mutate(data);
-	};
+		errors,
+		isLoading,
+		onSubmit,
+		isError
+	} = useAuthPage();
 
 	return (
 		<>
-			<Layout heading='Sign in' bgImage='images/auth-image.jpg' />
+			<Layout
+				heading='Sign in'
+				bgImage={'/images/false-password-auth.jpg' && 'images/auth-image.jpg'}
+			/>
 			<div className='wrapper-inner-page'>
 				{isLoading && <Loader />}
 				<form onSubmit={handleSubmit(onSubmit)}>

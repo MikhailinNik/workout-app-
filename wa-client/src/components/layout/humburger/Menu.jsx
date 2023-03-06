@@ -1,11 +1,22 @@
 import cn from 'clsx';
-import { Link } from 'react-router-dom';
+import Cookie from 'js-Cookie';
+import { Link, useNavigate } from 'react-router-dom';
+
+import { useAuth } from '../../../hooks/useAuth';
 
 import styles from './Humburger.module.scss';
 import { menu } from './menu.data.js';
 
-const Menu = ({ isShow }) => {
-	const logoutHandler = () => {};
+const Menu = ({ isShow, setIsShow }) => {
+	const { setIsAuth } = useAuth();
+	const navigate = useNavigate();
+
+	const logoutHandler = () => {
+		Cookie.remove('bread');
+		setIsAuth(false);
+		setIsShow(false);
+		navigate('/auth');
+	};
 	return (
 		<nav
 			className={cn(styles.menu, {

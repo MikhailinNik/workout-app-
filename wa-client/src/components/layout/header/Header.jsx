@@ -10,14 +10,13 @@ import styles from './Header.module.scss';
 
 const Header = ({ backLink = '' }) => {
 	const { isAuth } = useAuth();
-
 	const { pathname } = useLocation();
 	const navigate = useNavigate();
 
 	return (
 		<header className={styles.header}>
-			{pathname !== '/' ? (
-				<button onClick={() => navigate(backLink)}>
+			{pathname !== '/' || !isAuth ? (
+				<button onClick={() => navigate(isAuth ? backLink : '/auth')}>
 					<FiArrowLeft color='white' fontSize={30} />
 				</button>
 			) : (
@@ -26,7 +25,7 @@ const Header = ({ backLink = '' }) => {
 				</button>
 			)}
 
-			<Hamburger />
+			{isAuth && <Hamburger />}
 		</header>
 	);
 };

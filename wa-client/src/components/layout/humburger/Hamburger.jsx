@@ -18,7 +18,7 @@ const Hamburger = () => {
 					<HiMenu color='white' fontSize={30} />
 				)}
 			</button>
-			<Menu isShow={isShow} />
+			<Menu isShow={isShow} setIsShow={setIsShow} />
 		</div>
 	);
 };
